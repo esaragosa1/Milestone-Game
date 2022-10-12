@@ -31,6 +31,8 @@ createBoard()
 //Drag the candies
 let colorBeingDragged
 let colorBeingReplaced
+let squareIdBeingDragged
+let squareIdBeingReplaced
 
 squares.forEach(square => square.addEventListener('dragstart', dragStart))
 squares.forEach(square => square.addEventListener('dragend', dragEnd))
@@ -41,15 +43,18 @@ squares.forEach(square => square.addEventListener('drop', dragDrop))
 
 function dragStart() {
     colorBeingDragged = this.style.backgroundColor
+    squareIdBeingDragged = parseInt(this.id)
     console.log(colorBeingDragged)
     console.log(this.id, 'dragstart')
 }
 
-function dragOver() {
+function dragOver(event) {
+    event.preventDefault()
    console.log(this.id, 'dragover')
 }
 
-function dragEnter() {
+function dragEnter(e) {
+    e.preventDefault()
     console.log(this.id, 'dragenter')
 }
 
@@ -57,14 +62,30 @@ function dragLeave() {
     console.log(this.id, 'dragleave')
 }
 
-function dragEnd() {
-    console.log(this.id, 'dragend')
-}
-
 function dragDrop() {
     console.log(this.id, 'dragdrop')
     colorBeingReplaced = this.style.backgroundColor
+    squareIdBeingReplaced = parseInt(this.id)
+    this.style.backgroundColor = colorBeingDragged
+    squares[squareIdBeingDragged].style.backgroundColor = colorBeingReplaced
 }
+
+function dragEnd() {
+    console.log(this.id, 'dragend')
+    //Defining a valid move as being allowed to switch out squares 1 above, below, left or right of square.
+    let validMoves = [
+        squareIdBeingDragged -1, 
+        squareIdBeingDragged -width, 
+        squareIdBeingDragged +1,
+        squareIdBeingDragged +width
+    ]
+    let validMove = validMoves.includes(squareIdBeingReplaced)
+
+
+
+}
+
+
 
 
 
