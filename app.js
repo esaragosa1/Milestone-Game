@@ -92,12 +92,57 @@ function dragEnd() {
 
 
 // Checking for matches
+//check for row of Four
+function checkRowForFour(){
+    for (i = 0; i < 61; i++) {
+        let rowOfFour = [i, i+1, i+2]
+        let decidedColor = squares[i].style.backgroundColor
+        const isBlank = squares[i].style.backgroundColor === ''
+
+        const notValid = [6, 7, 14, 15, 22, 23, 30, 31, 38, 39, 46, 47, 54, 55]
+        if(notValid.includes(i)) continue //this skips any invalid 
+
+        if (rowOfFour.every(index => squares[index].style.backgroundColor === decidedColor && !isBlank)) {
+            score += 3
+            rowOfFour.forEach(index => {
+                squares[index].style.backgroundColor = ''
+            })
+        }
+
+    }
+}
+checkRowForFour()
+
+
+//check for column of Three
+function checkColumnForFour(){
+    for (i = 0; i < 47; i++) {
+        let columnOfFour = [i, i+width, i+width*2]
+        let decidedColor = squares[i].style.backgroundColor
+        const isBlank = squares[i].style.backgroundColor === ''
+
+        if (columnOfFour.every(index => squares[index].style.backgroundColor === decidedColor && !isBlank)) {
+            score += 3
+            columnOfFour.forEach(index => {
+                squares[index].style.backgroundColor = ''
+            })
+        }
+
+    }
+}
+checkColumnForFour()
+
+
+
 //check for row of Three
 function checkRowForThree(){
     for (i = 0; i < 61; i++) {
         let rowOfThree = [i, i+1, i+2]
         let decidedColor = squares[i].style.backgroundColor
         const isBlank = squares[i].style.backgroundColor === ''
+
+        const notValid = [6, 7, 14, 15, 22, 23, 30, 31, 38, 39, 46, 47, 54, 55]
+        if(notValid.includes(i)) continue //this skips any invalid 
 
         if (rowOfThree.every(index => squares[index].style.backgroundColor === decidedColor && !isBlank)) {
             score += 3
@@ -111,8 +156,29 @@ function checkRowForThree(){
 checkRowForThree()
 
 
+//check for column of Three
+function checkColumnForThree(){
+    for (i = 0; i < 47; i++) {
+        let columnOfThree = [i, i+width, i+width*2]
+        let decidedColor = squares[i].style.backgroundColor
+        const isBlank = squares[i].style.backgroundColor === ''
+
+        if (columnOfThree.every(index => squares[index].style.backgroundColor === decidedColor && !isBlank)) {
+            score += 3
+            columnOfThree.forEach(index => {
+                squares[index].style.backgroundColor = ''
+            })
+        }
+
+    }
+}
+checkColumnForThree()
+
+
+
 window.setInterval(function(){
     checkRowForThree()
+    checkColumnForThree()
 }, 100)
 //need to add a button to activate this set interval and a pause and start functions
 
