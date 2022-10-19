@@ -8,12 +8,12 @@ const squares = []
 let score = 0
 
 const candyColors = [
-    'url(images/pizza.png)',
-    'url(images/egg.png)',
-    'url(images/icecream.png)',
-    'url(images/sushi2.png)',
-    'url(images/fries.png)',
-    'url(images/donut.jpg)'
+    'url(images/pizza1.png)',
+    'url(images/egg1.png)',
+    'url(images/icecream1.png)',
+    'url(images/sushi1.png)',
+    'url(images/fries1.png)',
+    'url(images/donut1.png)'
   ]
 
 //create your board
@@ -51,7 +51,7 @@ function dragStart(){
 
 function dragOver(e) {
     e.preventDefault()
-}
+} 
 
 function dragEnter(e) {
     e.preventDefault()
@@ -99,6 +99,46 @@ function moveIntoSquareBelow() {
 
 
 ///Checking for Matches
+
+//for row of Four
+  function checkRowForFive() {
+    for (i = 0; i < 59; i ++) {
+      let rowOfFive = [i, i+1, i+2, i+3]
+      let decidedColor = squares[i].style.backgroundImage
+      const isBlank = squares[i].style.backgroundImage === ''
+
+      const notValid = [4, 5, 6, 7, 12, 13, 14, 15, 20, 21, 22, 23, 28, 29, 30, 31, 36, 37, 38, 39, 44, 45, 46, 47, 52, 53, 54, 55]
+      if (notValid.includes(i)) continue
+
+      if(rowOfFive.every(index => squares[index].style.backgroundImage === decidedColor && !isBlank)) {
+        score += 5
+        scoreDisplay.innerHTML = score
+        rowOfFive.forEach(index => {
+        squares[index].style.backgroundImage = ''
+        })
+      }
+    }
+  }
+  checkRowForFour()
+
+//for column of Four
+  function checkColumnForFive() {
+    for (i = 0; i < 39; i ++) {
+      let columnOfFive = [i, i+width, i+width*2, i+width*3, i+width*4]
+      let decidedColor = squares[i].style.backgroundImage
+      const isBlank = squares[i].style.backgroundImage === ''
+
+      if(columnOfFive.every(index => squares[index].style.backgroundImage === decidedColor && !isBlank)) {
+        score += 4
+        scoreDisplay.innerHTML = score
+        columnOfFive.forEach(index => {
+        squares[index].style.backgroundImage = ''
+        })
+      }
+    }
+  }
+checkColumnForFour()
+
 //for row of Four
   function checkRowForFour() {
     for (i = 0; i < 60; i ++) {
@@ -122,7 +162,7 @@ function moveIntoSquareBelow() {
 
 //for column of Four
   function checkColumnForFour() {
-    for (i = 0; i < 39; i ++) {
+    for (i = 0; i < 47; i ++) {
       let columnOfFour = [i, i+width, i+width*2, i+width*3]
       let decidedColor = squares[i].style.backgroundImage
       const isBlank = squares[i].style.backgroundImage === ''
@@ -177,8 +217,10 @@ checkColumnForFour()
   }
 checkColumnForThree()
 
-// Checks carried out indefintely - Add Button to clear interval for best practise, or clear on game over/game won. If you have this indefinite check you can get rid of calling the check functions above.
+// Checks carried out indefintely - Add Button to clear interval for best practice, or clear on game over/game won. If you have this indefinite check you can get rid of calling the check functions above.
 window.setInterval(function(){
+  checkRowForFive()
+  checkColumnForFive()
     checkRowForFour()
     checkColumnForFour()
     checkRowForThree()
