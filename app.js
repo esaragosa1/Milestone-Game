@@ -8,12 +8,12 @@ const squares = []
 let score = 0
 
 const candyColors = [
-    'url(images/red-candy.png)',
-    'url(images/yellow-candy.png)',
-    'url(images/orange-candy.png)',
-    'url(images/purple-candy.png)',
-    'url(images/green-candy.png)',
-    'url(images/blue-candy.png)'
+    'url(images/pizza.png)',
+    'url(images/egg.png)',
+    'url(images/icecream.png)',
+    'url(images/sushi2.png)',
+    'url(images/fries.png)',
+    'url(images/donut.jpg)'
   ]
 
 //create your board
