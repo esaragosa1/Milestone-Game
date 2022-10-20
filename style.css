@@ -39,7 +39,7 @@ h1 {
 }
 
 body {
-    background-image: url("pnggrad16rgb.png");
+    background-image: url("clouds.png");
     max-width: 100vh;
     display: flex;
 }
